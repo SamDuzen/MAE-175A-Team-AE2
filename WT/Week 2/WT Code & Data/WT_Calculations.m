@@ -480,123 +480,87 @@ loc_l_perc = [0 7.5 10 20 30 40 50 60 70];
 
 figure(6)
 hold on
-plot(loc_u_perc,Cp_u_zero_deg_20,'-r')
-plot(loc_u_perc,Cp_u_zero_deg_35,'-b')
-plot(loc_u_perc,Cp_u_zero_deg_50,'-g')
+plot(loc_u_perc, Cp_u_zero_deg_20,'-r')
+plot(loc_u_perc, Cp_u_four_deg_20,'-m')
+plot(loc_u_perc, Cp_u_eight_deg_20,'-b')
+plot(loc_u_perc, Cp_u_twelve_deg_20,'-g')
+plot(loc_u_perc, Cp_u_sixteen_deg_20,'-c')
 hold off
-grid('on')
+title('C_{pu} Along Chord at 20 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
 ylabel('C_{pu}')
-xlabel('Percent along Chord (%)')
-title('C_{pu} Along Chord at 0 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+grid('on')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 figure(7)
 hold on
-plot(loc_u_perc,Cp_u_four_deg_20,'-r')
-plot(loc_u_perc,Cp_u_four_deg_35,'-b')
-plot(loc_u_perc,Cp_u_four_deg_50,'-g')
+plot(loc_u_perc, Cp_u_zero_deg_35,'-r')
+plot(loc_u_perc, Cp_u_four_deg_35,'-m')
+plot(loc_u_perc, Cp_u_eight_deg_35,'-b')
+plot(loc_u_perc, Cp_u_twelve_deg_35,'-g')
+plot(loc_u_perc, Cp_u_sixteen_deg_35,'-c')
 hold off
-grid('on')
+title('C_{pu} Along Chord at 35 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
 ylabel('C_{pu}')
-xlabel('Percent along Chord (%)')
-title('C_{pu} Along Chord at 4 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+grid('on')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 figure(8)
 hold on
-plot(loc_u_perc,Cp_u_eight_deg_20,'-r')
-plot(loc_u_perc,Cp_u_eight_deg_35,'-b')
-plot(loc_u_perc,Cp_u_eight_deg_50,'-g')
+plot(loc_u_perc, Cp_u_zero_deg_50,'-r')
+plot(loc_u_perc, Cp_u_four_deg_50,'-m')
+plot(loc_u_perc, Cp_u_eight_deg_50,'-b')
+plot(loc_u_perc, Cp_u_twelve_deg_50,'-g')
+plot(loc_u_perc, Cp_u_sixteen_deg_50,'-c')
 hold off
-grid('on')
+title('C_{pu} Along Chord at 50 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
 ylabel('C_{pu}')
-xlabel('Percent along Chord (%)')
-title('C_{pu} Along Chord at 8 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+grid('on')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 figure(9)
 hold on
-plot(loc_u_perc,Cp_u_twelve_deg_20,'-r')
-plot(loc_u_perc,Cp_u_twelve_deg_35,'-b')
-plot(loc_u_perc,Cp_u_twelve_deg_50,'-g')
+plot(loc_l_perc, Cp_l_zero_deg_20,'-r')
+plot(loc_l_perc, Cp_l_four_deg_20,'-m')
+plot(loc_l_perc, Cp_l_eight_deg_20,'-b')
+plot(loc_l_perc, Cp_l_twelve_deg_20,'-g')
+plot(loc_l_perc, Cp_l_sixteen_deg_20,'-c')
 hold off
+title('C_{pl} Along Chord at 20 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
+ylabel('C_{pl}')
 grid('on')
-ylabel('C_{pu}')
-xlabel('Percent along Chord (%)')
-title('C_{pu} Along Chord at 12 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 figure(10)
 hold on
-plot(loc_u_perc,Cp_u_sixteen_deg_20,'-r')
-plot(loc_u_perc,Cp_u_sixteen_deg_35,'-b')
-plot(loc_u_perc,Cp_u_sixteen_deg_50,'-g')
+plot(loc_l_perc, Cp_l_zero_deg_35,'-r')
+plot(loc_l_perc, Cp_l_four_deg_35,'-m')
+plot(loc_l_perc, Cp_l_eight_deg_35,'-b')
+plot(loc_l_perc, Cp_l_twelve_deg_35,'-g')
+plot(loc_l_perc, Cp_l_sixteen_deg_35,'-c')
 hold off
+title('C_{pl} Along Chord at 35 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
+ylabel('C_{pl}')
 grid('on')
-ylabel('C_{pu}')
-xlabel('Percent along Chord (%)')
-title('C_{pu} Along Chord at 16 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 figure(11)
 hold on
-plot(loc_l_perc,Cp_l_zero_deg_20,'-r')
-plot(loc_l_perc,Cp_l_zero_deg_35,'-b')
-plot(loc_l_perc,Cp_l_zero_deg_50,'-g')
+plot(loc_l_perc, Cp_l_zero_deg_50,'-r')
+plot(loc_l_perc, Cp_l_four_deg_50,'-m')
+plot(loc_l_perc, Cp_l_eight_deg_50,'-b')
+plot(loc_l_perc, Cp_l_twelve_deg_50,'-g')
+plot(loc_l_perc, Cp_l_sixteen_deg_50,'-c')
 hold off
-grid('on')
+title('C_{pl} Along Chord at 50 m/s and Various AOA')
+xlabel('Percent Along Chord (%)')
 ylabel('C_{pl}')
-xlabel('Percent along Chord (%)')
-title('C_{pl} Along Chord at 0 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
-
-figure(12)
-hold on
-plot(loc_l_perc,Cp_l_four_deg_20,'-r')
-plot(loc_l_perc,Cp_l_four_deg_35,'-b')
-plot(loc_l_perc,Cp_l_four_deg_50,'-g')
-hold off
 grid('on')
-ylabel('C_{pl}')
-xlabel('Percent along Chord (%)')
-title('C_{pl} Along Chord at 4 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
-
-figure(13)
-hold on
-plot(loc_l_perc,Cp_l_eight_deg_20,'-r')
-plot(loc_l_perc,Cp_l_eight_deg_35,'-b')
-plot(loc_l_perc,Cp_l_eight_deg_50,'-g')
-hold off
-grid('on')
-ylabel('C_{pl}')
-xlabel('Percent along Chord (%)')
-title('C_{pl} Along Chord at 8 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
-
-figure(14)
-hold on
-plot(loc_l_perc,Cp_l_twelve_deg_20,'-r')
-plot(loc_l_perc,Cp_l_twelve_deg_35,'-b')
-plot(loc_l_perc,Cp_l_twelve_deg_50,'-g')
-hold off
-grid('on')
-ylabel('C_{pl}')
-xlabel('Percent along Chord (%)')
-title('C_{pl} Along Chord at 12 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
-
-figure(15)
-hold on
-plot(loc_l_perc,Cp_l_sixteen_deg_20,'-r')
-plot(loc_l_perc,Cp_l_sixteen_deg_35,'-b')
-plot(loc_l_perc,Cp_l_sixteen_deg_50,'-g')
-hold off
-grid('on')
-ylabel('C_{pl}')
-xlabel('Percent along Chord (%)')
-title('C_{pl} Along Chord at 16 Deg AOA and Various Speeds')
-legend('20 m/s', '35 m/s', '50 m/s')
+legend('Zero deg', 'Four deg', 'Eight deg', 'Twelve deg', 'Sixteen deg', Location='SouthEast')
 
 %% Plotting Cl and Cd
 angle_spread = [0 1 2 3 4]*4;
@@ -608,7 +572,7 @@ plot(angle_spread,Cl_50,'-g')
 hold off
 grid('on') 
 legend('20 m/s', '35 m/s', '50 m/s', location='NorthWest')
-title('C_l by AOA and Various Speeds')
+title('C_l by AOA at Various Air Speeds')
 xlabel('Angle of Attack (deg)')
 ylabel('C_l')
 
@@ -620,7 +584,7 @@ plot(angle_spread,Cd_50,'-g')
 hold off
 grid('on')
 legend('20 m/s', '35 m/s', '50 m/s', location='NorthWest')
-title('C_d by AOA and Various Speeds')
+title('C_d by AOA at Various Air Speeds')
 xlabel('Angle of Attack (deg)')
 ylabel('C_d')
 
@@ -657,10 +621,11 @@ plot(angle_spread,Cm_le_20,'-r')
 plot(angle_spread,Cm_le_35,'-b')
 plot(angle_spread,Cm_le_50,'-g')
 hold off
-title('C_m by AOA at Various Speeds')
+title('C_m by AOA at Various Air Speeds')
 grid('on')
 xlabel('Angle of Attack (deg)')
 ylabel('C_m')
+legend('20 m/s', '35 m/s', '50 m/s', location='SouthWest')
 
 
 %% Calculating x_cp
@@ -682,6 +647,7 @@ grid('on')
 title('Center of Pressure x_{cp} over AOA at Various Speeds')
 xlabel('Angle of Attack (deg)')
 ylabel('Position on Chord from Leading Edge (in)')
+legend('20 m/s', '35 m/s', '50 m/s', location='East')
 
 %% Polyfitting Dynamic Pressure Distr. of Rake
 q020_pval = polyfit(rake_spread,zero_deg_20(19:36),2);
@@ -743,6 +709,7 @@ title('Momentum Deficit C_d by AOA at Various Speeds')
 grid('on')
 xlabel('Angle of Attack (deg)')
 ylabel('C_d')
+legend('20 m/s', '35 m/s', '50 m/s', location='NorthWest')
 
 %% Plotting Dynamic Pressure Ratio Over Rake Distr.
 dyn_pre_r_zero_deg_20 = zero_deg_20(19:36)/zero_deg_20(end);
