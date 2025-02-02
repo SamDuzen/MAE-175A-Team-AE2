@@ -18,7 +18,7 @@ clear all; close all; clc;
 [v20_d20, errv20_d20] = uncouplate(readmatrix('20_20', 'Delimiter', '\t'));
 
 % Create a vector for AoA, Cl, Cd, Cm
-v20_vec = zeros(13,4);   errv20_vec = zeros(13,3); % pre-allocating
+v20_vec = zeros(13,4);   errv20_vec = zeros(13,4); % pre-allocating
 v20_vec(1,:) = v20_dn4;  errv20_vec(1,:) = errv20_dn4;
 v20_vec(2,:) = v20_dn2;  errv20_vec(2,:) = errv20_dn2;
 v20_vec(3,:) = v20_d0;   errv20_vec(3,:) = errv20_d0;
@@ -49,7 +49,7 @@ v20_vec(13,:) = v20_d20; errv20_vec(13,:) = errv20_d20;
 [v35_d16, errv35_d16] = uncouplate(readmatrix('35_16', 'Delimiter', '\t'));
 
 % Create a vector for AoA, Cl, Cd, Cm
-v35_vec = zeros(11,4);      errv35_vec = zeros(11,3); % pre-allocating
+v35_vec = zeros(11,4);      errv35_vec = zeros(11,4); % pre-allocating
 v35_vec(1,:) = v35_dn4;     errv35_vec(1,:) = errv35_dn4;
 v35_vec(2,:) = v35_dn2;     errv35_vec(2,:) = errv35_dn2;
 v35_vec(3,:) = v35_d0;      errv35_vec(3,:) = errv35_d0;
@@ -80,7 +80,7 @@ v35_vec(11,:) = v35_d16;    errv35_vec(11,:) = errv35_d16;
 [v50_d185, errv50_d185] = uncouplate(readmatrix('50_185', 'Delimiter', '\t'));
 
 % Create a vector for AoA, Cl, Cd, Cm
-v50_vec = zeros(13,4);      errv50_vec = zeros(13,3);% pre-allocating
+v50_vec = zeros(13,4);      errv50_vec = zeros(13,4);% pre-allocating
 v50_vec(1,:) = v50_dn4;     errv50_vec(1,:) = errv50_dn4;
 v50_vec(2,:) = v50_dn2;     errv50_vec(2,:) = errv50_dn2;
 v50_vec(3,:) = v50_d0;      errv50_vec(3,:) = errv50_d0;
@@ -106,9 +106,9 @@ function plotData(x,y,z,a,b,c)
     AoA_y = y(:,1)'; Cl_y = y(:,2)'; Cd_y = y(:,3)'; Cm_y = y(:,4)';
     AoA_z = z(:,1)'; Cl_z = z(:,2)'; Cd_z = z(:,3)'; Cm_z = z(:,4)';
 
-    sdCl_a = a(:,1)'; sdCd_a = a(:,2)'; sdClCd_a = a(:,3)';
-    sdCl_b = b(:,1)'; sdCd_b = b(:,2)'; sdClCd_b = b(:,3)';
-    sdCl_c = c(:,1)'; sdCd_c = c(:,2)'; sdClCd_c = c(:,3)';
+    sdCl_a = a(:,1)'; sdCd_a = a(:,2)'; sdClCd_a = a(:,3)'; sdCm_a = a(:,4)';
+    sdCl_b = b(:,1)'; sdCd_b = b(:,2)'; sdClCd_b = b(:,3)'; sdCm_b = b(:,4)';
+    sdCl_c = c(:,1)'; sdCd_c = c(:,2)'; sdClCd_c = c(:,3)'; sdCm_c = c(:,4)';
 
     figure; hold on; % Cl vs AoA
     plot(AoA_x, Cl_x,"Color",'b',"LineWidth",2);
@@ -159,6 +159,15 @@ function plotData(x,y,z,a,b,c)
     xlabel('AoA [deg]'); ylabel('Cd');
     legend('V = 20 m/s', 'V = 35 m/s', 'V = 50 m/s'); 
     title('Drag Coefficient vs. Angle of Attack');
+
+    figure; hold on; % Error bar Cm
+    errorbar(AoA_x, Cm_x, sdCm_a, "Color",'b',"LineWidth",2);
+    errorbar(AoA_y, Cm_y, sdCm_b, "Color",'g',"LineWidth",2);
+    errorbar(AoA_z, Cm_z, sdCm_c, "Color",'r',"LineWidth",2);
+    grid on;
+    xlabel('AoA [deg]'); ylabel('Cm_c/4');
+    legend('V = 20 m/s', 'V = 35 m/s', 'V = 50 m/s'); 
+    title('Cmc/4 vs. Angle of Attack');
 
     figure; hold on; % Error bar ClCd
     errorbar(AoA_x, Cl_x./Cd_x, sdClCd_a, "Color",'b',"LineWidth",2);
@@ -248,6 +257,9 @@ function [vec, err] = uncouplate(x)
         ((-2*D)/(c*qinf*data(3)))^2 * sdV^2  + ...
         ((-D)/(qinf*c^2))^2 * sdc^2 ); % Cl SD
     sdClCd = abs(Cl/Cd) * sqrt((sdCl/Cl)^2 + (sdCd/Cd)^2); % Cl/Cd SD
+    sdM = sqrt(sdP^2 + sdN^2 * (-d)^2);
+    sdCm = sqrt( (1/(qinf*c^2)) * sdM^2 + ...
+        ((-2*Mc4)/(qinf*data(3)*c^2))^2  * sdV^2);
 
-    err = [sdCl, sdCd, sdClCd]; % Error vector
+    err = [sdCl, sdCd, sdClCd, sdCm]; % Error vector
 end
