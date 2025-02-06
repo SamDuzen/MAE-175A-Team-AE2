@@ -46,6 +46,31 @@ speed_estimate = airspeed(speed);
 dP = 248.84.*SD_pressure;
 dU = (((density)./(2*p_si)).*(dP.^2)).^(1/2);
 
+%Plotting the Error
+dU_v = [0 dU];
+speed_v = [0 speed];
+
+%Error Fit
+sv_s = speed_v;
+    sv_s(1) = [];
+ev = dU_v;
+    ev(1) = [];
+p = linspace(8,80,100);
+as_error = @(x) 3.481*exp(-0.1121*x) + 0.433*exp(-0.008317*x);
+as_ev = as_error(p);
+
+figure()
+hold on
+plot(speed_v,dU_v,'b','LineWidth',2)
+plot(p,as_ev,'--k')
+plot(speed_v,dU_v,'ob','MarkerFaceColor','b')
+grid on
+xlabel('Airflow (% of maximum)')
+ylabel('Air Speed Error (m/s)')
+xlim([0,80])
+ylim([0,1.6])
+legend('Data','Exponential Fit (a*exp(b*x) + c*exp(d*x))','Location','best')
+
 %% figure
 
 figure()
