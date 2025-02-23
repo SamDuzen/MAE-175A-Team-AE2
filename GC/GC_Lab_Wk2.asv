@@ -309,22 +309,10 @@ for j = 1:7
     for i = 1:numel(y{j})
     check = y{j}(i)-Target(j);
     if 100*abs(check)/Target(j) <= 2
-        if 100*(y{j}(i+5)-Target(j))/Target(j) <= 2
-            Threshold = Threshold + 1;
-        end
         if 100*(y{j}(i+10)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
-        if 100*(y{j}(i+25)-Target(j))/Target(j) <= 2
-            Threshold = Threshold + 1;
-        end
-        if 100*(y{j}(i+35)-Target(j))/Target(j) <= 2
-            Threshold = Threshold + 1;
-        end
-        if 100*(y{j}(i+45)-Target(j))/Target(j) <= 2
-            Threshold = Threshold + 1;
-        end
-        if 100*(y{j}(i+50)-Target(j))/Target(j) <= 2
+        if 100*(y{j}(i+4)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
         if 100*(y{j}(i+75)-Target(j))/Target(j) <= 2
@@ -354,7 +342,7 @@ for j = 1:7
         if 100*(y{j}(i+400)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
-        if Threshold == 15
+        if Threshold == 10
             break
         end
     end

@@ -9,7 +9,8 @@ K=-2120;beta=0.063;
 G31 = tf(K,[1 beta 0]);
 
 % model from motor 2 to encoder 2 must be specified by G22
-wn=2*pi*2;beta=0.1;K=750;
+wn=18.201;beta=0.04585;K=166.5;
+K = K*1.1;
 G22 = tf(K*wn^2,[1 2*beta*wn wn^2]);
 
 % model from motor 2 to encoder 4 must be specified by G42
