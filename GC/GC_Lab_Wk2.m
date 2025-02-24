@@ -184,12 +184,8 @@ Conf_95_Lower_K = Mean_K - Conf_95_Bound_K;
 Conf_95_Upper_K = Mean_K + Conf_95_Bound_K;
 
 %Transfer Function
-G22 = tf(Mean_K*Mean_Omega_n^2,[1, 2*Mean_Beta*Mean_Omega_n, Mean_Omega_n^2])
+G22 = tf(Mean_K*Mean_Omega_n^2,[1, 2*Mean_Beta*Mean_Omega_n, Mean_Omega_n^2]);
 
-return
-
-figure()
-plot(Time{1},Encoder2Pos{1},Encoder2Pos{1}(LM{1}),'r*')
 
 %% Closed Loop
 clear all;
@@ -264,6 +260,10 @@ for i = 1:5
     Overshoot(i) = 100*(max(Encoder2Pos{i}-Reference(i)))/Reference(i);
 end
 
+OS_Mean = mean(Overshoot)
+OS_SD = std(Overshoot)
+
+
 %Plot Closed Loop Data
 figure()
 hold on
@@ -316,8 +316,8 @@ fig1 = openfig('Wk2_CL_Reference.fig');
     axObjs = fig1.Children;
     topAx = axObjs(3);
     dataObjs = topAx.Children; % Get plot data
-    x{1} = dataObjs(1).XData;
-    y{1} = dataObjs(1).YData;
+    x{1} = dataObjs(1).XData; %time
+    y{1} = dataObjs(1).YData; %encoder position
 fig2 = openfig('Wk2_CL_Wn_09.fig');
     axObjs = fig2.Children;
     topAx = axObjs(3);

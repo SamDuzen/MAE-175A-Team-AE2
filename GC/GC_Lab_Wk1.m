@@ -57,7 +57,7 @@ clear all; close all; clc;
     Encoder3Pos{5} = data{5}(:,3);  
     ControlEffort1{5} = data{5}(:,4);
 
-%Plot Open Loop Data
+%Plot Open Loop Data - Position
 figure()
 hold on
 plot(Time{1},Encoder3Pos{1})
@@ -93,6 +93,45 @@ xline(4,'--k')
 grid on
 xlabel('Time [s]')
 ylabel('Encoder 3 Position [Counts]')
+title('4000ms Dwell Time')
+legend('Average','Stand. Dev. Bounds')
+
+%Plot Open Loop Data - Control Effort
+figure()
+hold on
+plot(Time{1},ControlEffort1{1})
+plot(Time{2},ControlEffort1{2})
+plot(Time{3},ControlEffort1{3})
+plot(Time{4},ControlEffort1{4})
+plot(Time{5},ControlEffort1{5})
+xline(4,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 1 [counts]')
+title('4000ms Dwell Time')
+legend('Trial 1 (2 Volts)','Trial 2 (1.9 Volts)', 'Trial 3 (1.8 Volts)','Trial 4 (1.7 Volts)', 'Trial 5 (1.6 Volts)','Location','best')
+
+%Average Line (Error Analysis) - Position
+for i = 1:numel(Time{1})
+    %Sample Mean
+        SMC(i) = (1/5)*(ControlEffort1{1}(i) + ControlEffort1{2}(i) + ControlEffort1{3}(i) + ControlEffort1{4}(i) + ControlEffort1{5}(i)); %Sample mean at each point
+    %Sample Standard Deviation
+        SSDC(i) = sqrt(((ControlEffort1{1}(i)-SMC(i))^2+(ControlEffort1{2}(i)-SMC(i))^2+(ControlEffort1{3}(i)-SMC(i))^2+(ControlEffort1{4}(i)-SMC(i))^2+(ControlEffort1{5}(i)-SMC(i))^2)/5);
+    %Standard Deviation Bounds
+        UpperC(i) = SMC(i) + SSDC(i);
+        LowerC(i) = SMC(i) - SSDC(i);
+end
+
+%Position Error Plot - Control
+figure()
+hold on
+plot(Time{1},SMC)
+plot(Time{1},UpperC,'--r')
+plot(Time{1},LowerC,'--r')
+xline(4,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 1 [Counts]')
 title('4000ms Dwell Time')
 legend('Average','Stand. Dev. Bounds')
 
@@ -203,7 +242,12 @@ K_Conf_95_Lower = K_mean - K_Conf_95_Bound;
 K_Conf_95_Upper = K_mean + K_Conf_95_Bound;
 
 %Beta
-%nothing
+    Beta = [0.1,0.02,0.05,0.02,0.125];
+Beta_mean = mean(Beta);
+Beta_SD = sqrt(((Beta(1)-Beta_mean)^2 + (Beta(2)-Beta_mean)^2 + (Beta(3)-Beta_mean)^2 + (Beta(4)-Beta_mean)^2 + (Beta(5)-Beta_mean)^2)/(numel(Beta)))
+Beta_Conf_95_Bound = 1.96*Beta_SD
+Beta_Conf_95_Lower = Beta_mean - Beta_Conf_95_Bound
+Beta_Conf_95_Upper = Beta_mean + Beta_Conf_95_Bound
 
 %% Closed Loop
 
@@ -251,7 +295,7 @@ end
 Settling_Time = Time{6}(i);
 fprintf('The settling time is %d seconds\n',Settling_Time)
 
-%Plot Open Loop Data
+%Plot Closed Loop Data - Position
 figure()
 hold on
 plot(Time{6},Encoder3Pos{6})
@@ -262,6 +306,17 @@ xlabel('Time [s]')
 ylabel('Encoder 3 Position [counts]')
 title('4000ms Dwell Time')
 legend('Measured Response', 'Control Input Cutoff', '25% Overshoot Bound','Location','best')
+
+%Plot Closed Loop Data
+figure()
+hold on
+plot(Time{6},ControlEffort1{6})
+xline(4,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 1 [counts]')
+title('4000ms Dwell Time')
+legend('Closed Loop Control Effort','Location','best')
 
 %Figure
 openfig('Week1PDSIM.fig')
