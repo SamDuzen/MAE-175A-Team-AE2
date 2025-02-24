@@ -133,6 +133,64 @@ grid on
 xlabel('Time [s]')
 ylabel('Encoder 2 Position [Counts]')
 
+%% Error
+
+%Local Maxima
+for i = 1:5
+    LM{i} = islocalmax(Encoder2Pos{i}); %Locate local maxima
+    Peaks{i} = Encoder2Pos{i}(LM{i}); %Find y-axis value of maxima
+    Peak_Time{i} = Time{i}(LM{i}); %Find x-axis value of maxima
+end
+
+%y-infinity
+for i = 1:5
+    Reference(i) = Encoder2Pos{i}(68); %Find steady state value right before dip
+end
+
+%Omega_d // BOm_n
+n = 2;
+for i = 1:5
+    Omega_d(i) = 2*pi*(n/(Peak_Time{i}(n+1)-Peak_Time{i}(1)));
+    BOm_n(i) = (1/(Peak_Time{i}(n+1)-Peak_Time{i}(1)))*log((Peaks{i}(1)-Reference(i))/(Peaks{i}(n+1)-Reference(i)));
+end
+
+%Reporting Parameters
+Voltage = 3; %Step input
+for i = 1:5
+    Omega_n(i) = sqrt(Omega_d(i)^2 + BOm_n(i)^2);
+    Beta(i) = BOm_n(i)/Omega_n(i);
+    K(i) = Reference(i)/Voltage;
+end
+
+%Omega_n Error
+Mean_Omega_n = sum(Omega_n)/numel(Omega_n);
+SD_Omega_n = sqrt(((Omega_n(1)-Mean_Omega_n)^2 + (Omega_n(2)-Mean_Omega_n)^2 + (Omega_n(3)-Mean_Omega_n)^2 + (Omega_n(4)-Mean_Omega_n)^2 + (Omega_n(5)-Mean_Omega_n)^2)/(numel(Omega_n)));
+Conf_95_Bound_Omega_n = 1.96*SD_Omega_n;
+Conf_95_Lower_Omega_n = Mean_Omega_n - Conf_95_Bound_Omega_n;
+Conf_95_Upper_Omega_n = Mean_Omega_n + Conf_95_Bound_Omega_n;
+
+%Beta Error
+Mean_Beta = sum(Beta)/numel(Beta);
+SD_Beta = sqrt(((Beta(1)-Mean_Beta)^2 + (Beta(2)-Mean_Beta)^2 + (Beta(3)-Mean_Beta)^2 + (Beta(4)-Mean_Beta)^2 + (Beta(5)-Mean_Beta)^2)/(numel(Beta)));
+Conf_95_Bound_Beta = 1.96*SD_Beta;
+Conf_95_Lower_Beta = Mean_Beta - Conf_95_Bound_Beta;
+Conf_95_Upper_Beta = Mean_Beta + Conf_95_Bound_Beta;
+
+%K Error
+Mean_K = sum(K)/numel(K);
+SD_K = sqrt(((K(1)-Mean_K)^2 + (K(2)-Mean_K)^2 + (K(3)-Mean_K)^2 + (K(4)-Mean_K)^2 + (K(5)-Mean_K)^2)/(numel(K)));
+Conf_95_Bound_K = 1.96*SD_K;
+Conf_95_Lower_K = Mean_K - Conf_95_Bound_K;
+Conf_95_Upper_K = Mean_K + Conf_95_Bound_K;
+
+%Transfer Function
+G22 = tf(Mean_K*Mean_Omega_n^2,[1, 2])
+
+return
+
+figure()
+plot(Time{1},Encoder2Pos{1},Encoder2Pos{1}(LM{1}),'r*')
+
 %% Closed Loop
 clear all;
 
@@ -309,10 +367,22 @@ for j = 1:7
     for i = 1:numel(y{j})
     check = y{j}(i)-Target(j);
     if 100*abs(check)/Target(j) <= 2
+        if 100*(y{j}(i+5)-Target(j))/Target(j) <= 2
+            Threshold = Threshold + 1;
+        end
         if 100*(y{j}(i+10)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
-        if 100*(y{j}(i+4)-Target(j))/Target(j) <= 2
+        if 100*(y{j}(i+25)-Target(j))/Target(j) <= 2
+            Threshold = Threshold + 1;
+        end
+        if 100*(y{j}(i+35)-Target(j))/Target(j) <= 2
+            Threshold = Threshold + 1;
+        end
+        if 100*(y{j}(i+45)-Target(j))/Target(j) <= 2
+            Threshold = Threshold + 1;
+        end
+        if 100*(y{j}(i+50)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
         if 100*(y{j}(i+75)-Target(j))/Target(j) <= 2
@@ -342,7 +412,7 @@ for j = 1:7
         if 100*(y{j}(i+400)-Target(j))/Target(j) <= 2
             Threshold = Threshold + 1;
         end
-        if Threshold == 10
+        if Threshold == 15
             break
         end
     end

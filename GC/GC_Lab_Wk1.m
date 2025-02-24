@@ -176,6 +176,35 @@ legend('Average','Stand. Dev. Bounds','Location','best')
 %Average Parameter Calculations
 (SMV(numel(SMV)/2-5)-SMV(1))/(VelTime(numel(SMV)/2-5)-VelTime(1));
 
+%% Open Loop Error (Parameters)
+
+%Velocity Slope at t=0
+    dy_dt(1) = (Tr1_Vel(10)-Tr1_Vel(1))/(VelTime(10)-VelTime(1));
+    dy_dt(2) = (Tr2_Vel(10)-Tr2_Vel(1))/(VelTime(10)-VelTime(1));
+    dy_dt(3) = (Tr3_Vel(10)-Tr3_Vel(1))/(VelTime(10)-VelTime(1));
+    dy_dt(4) = (Tr4_Vel(10)-Tr4_Vel(1))/(VelTime(10)-VelTime(1));
+    dy_dt(5) = (Tr5_Vel(10)-Tr5_Vel(1))/(VelTime(10)-VelTime(1));
+dy_dt_mean = sum(dy_dt)/numel(dy_dt);
+dy_dt_SD = sqrt(((dy_dt(1)-dy_dt_mean)^2 + (dy_dt(2)-dy_dt_mean)^2 + (dy_dt(3)-dy_dt_mean)^2 + (dy_dt(4)-dy_dt_mean)^2 + (dy_dt(5)-dy_dt_mean)^2)/(numel(dy_dt)));
+dy_dt_Conf_95_Bound = 1.96*dy_dt_SD;
+dy_dt_Conf_95_Lower = dy_dt_mean - dy_dt_Conf_95_Bound;
+dy_dt_Conf_95_Upper = dy_dt_mean + dy_dt_Conf_95_Bound;
+
+%Gain K
+    K(1) = dy_dt(1)*(1/2);
+    K(2) = dy_dt(2)*(1/1.9);
+    K(3) = dy_dt(3)*(1/1.8);
+    K(4) = dy_dt(4)*(1/1.7);
+    K(5) = dy_dt(5)*(1/1.6);
+K_mean = sum(K)/numel(K);
+K_SD = sqrt(((K(1)-K_mean)^2 + (K(2)-K_mean)^2 + (K(3)-K_mean)^2 + (K(4)-K_mean)^2 + (K(5)-K_mean)^2)/(numel(K)));
+K_Conf_95_Bound = 1.96*K_SD;
+K_Conf_95_Lower = K_mean - K_Conf_95_Bound;
+K_Conf_95_Upper = K_mean + K_Conf_95_Bound;
+
+%Beta
+%nothing
+
 %% Closed Loop
 
 %File Read
