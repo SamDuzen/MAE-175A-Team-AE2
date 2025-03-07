@@ -127,6 +127,21 @@ ylabel('Encoder 2 Position [Counts]')
 title('3000ms Dwell Time')
 legend('Average','Stand. Dev. Bounds')
 
+%Plot Open Loop Data - Control Effort 2
+figure()
+hold on
+plot(Time{1},ControlEffort2{1})
+plot(Time{2},ControlEffort2{2})
+plot(Time{3},ControlEffort2{3})
+plot(Time{4},ControlEffort2{4})
+plot(Time{5},ControlEffort2{5})
+xline(3,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 2 [Volts]')
+title('3000ms Dwell Time')
+legend('Trial 1','Trial 2', 'Trial 3','Trial 4', 'Trial 5','Location','best')
+
 %% Open Loop Model Validation
 fig = openfig('Week2Validation.fig');
 grid on
@@ -264,7 +279,7 @@ OS_Mean = mean(Overshoot)
 OS_SD = std(Overshoot)
 
 
-%Plot Closed Loop Data
+%Plot Closed Loop Data - Position
 figure()
 hold on
 plot(Time{1},Encoder2Pos{1})
@@ -279,15 +294,34 @@ ylabel('Encoder 2 Position [counts]')
 title('3000ms Dwell Time')
 legend('Trial 1','Trial 2', 'Trial 3','Trial 4', 'Trial 5','Location','best')
 
+%Plot Closed Loop Data - Control Effort
+figure()
+hold on
+plot(Time{1},ControlEffort2{1})
+plot(Time{2},ControlEffort2{2})
+plot(Time{3},ControlEffort2{3})
+plot(Time{4},ControlEffort2{4})
+plot(Time{5},ControlEffort2{5})
+xline(3,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 2 [Volts]')
+title('3000ms Dwell Time')
+legend('Trial 1','Trial 2', 'Trial 3','Trial 4', 'Trial 5','Location','best')
+
 %Average of Trials
 for i = 1:numel(Time{1})
     %Sample Mean
         SM(i) = (1/5)*(Encoder2Pos{1}(i) + Encoder2Pos{2}(i) + Encoder2Pos{3}(i) + Encoder2Pos{4}(i) + Encoder2Pos{5}(i)); %Sample mean at each point
+        SMVo(i) = (1/5)*(ControlEffort2{1}(i) + ControlEffort2{2}(i) + ControlEffort2{3}(i) + ControlEffort2{4}(i) + ControlEffort2{5}(i)); %Sample mean at each point
     %Sample Standard Deviation
         SSD(i) = sqrt(((Encoder2Pos{1}(i)-SM(i))^2+(Encoder2Pos{2}(i)-SM(i))^2+(Encoder2Pos{3}(i)-SM(i))^2+(Encoder2Pos{4}(i)-SM(i))^2+(Encoder2Pos{5}(i)-SM(i))^2)/5);
+        SSDVo(i) = sqrt(((ControlEffort2{1}(i)-SMVo(i))^2+(ControlEffort2{2}(i)-SMVo(i))^2+(ControlEffort2{3}(i)-SMVo(i))^2+(ControlEffort2{4}(i)-SMVo(i))^2+(ControlEffort2{5}(i)-SMVo(i))^2)/5);
     %Standard Deviation Bounds
         Upper(i) = SM(i) + SSD(i);
+        UpperVo(i) = SMVo(i) + SSDVo(i);
         Lower(i) = SM(i) - SSD(i);
+        LowerVo(i) = SMVo(i) - SSDVo(i);
 end
 
 %Plot the averaged trials
@@ -300,6 +334,19 @@ xline(3,'--k')
 grid on
 xlabel('Time [s]')
 ylabel('Encoder 2 Position [Counts]')
+title('3000ms Dwell Time')
+legend('Average','Stand. Dev. Bounds')
+
+%Plot the averaged trials - Control Effort
+figure()
+hold on
+plot(Time{1},SMVo)
+plot(Time{1},UpperVo,'--r')
+plot(Time{1},LowerVo,'--r')
+xline(3,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 2 [Volts]')
 title('3000ms Dwell Time')
 legend('Average','Stand. Dev. Bounds')
 

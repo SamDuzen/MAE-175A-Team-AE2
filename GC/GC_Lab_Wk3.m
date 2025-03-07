@@ -13,7 +13,7 @@ clear all; close all; clc;
     Encoder4Pos{1} = data{1}(:,3);  
     ControlEffort2{1} = data{1}(:,4);
 
-%Plot Open Loop Data
+%Plot Open Loop Data - Position
 figure()
 hold on
 plot(Time{1},Encoder4Pos{1})
@@ -21,6 +21,16 @@ xline(3,'--k')
 grid on
 xlabel('Time [s]')
 ylabel('Encoder 4 Position [counts]')
+title('3000ms Dwell Time')
+
+%Plot Open Loop Data - Control Effort
+figure()
+hold on
+plot(Time{1},ControlEffort2{1})
+xline(3,'--k')
+grid on
+xlabel('Time [s]')
+ylabel('Control Effort 2 [Volts]')
 title('3000ms Dwell Time')
 
 %Velocity Calculation
