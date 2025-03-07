@@ -360,23 +360,7 @@ smooth1 = smoothdata(F13__M3_Ch1,"movmean",40);
 smooth1 = smoothdata(smooth1,"sgolay");
 
 %Data Saving
-Floor_1_M3 = smooth1;
-
-%Data Smoothing - Mode 2
-smooth1 = smoothdata(F23__M2_Ch1,"sgolay");
-smooth2 = smoothdata(F23__M2_Ch2,"sgolay");
-
-%Data Saving
-Floor_2_M2 = smooth1;
-Floor_3_M2 = smooth2;
-
-%Data Smoothing - Mode 3
-smooth1 = smoothdata(F23__M3_Ch1,"sgolay");
-smooth2 = smoothdata(F23__M3_Ch2,"sgolay");
-
-%Data Saving
-Floor_2_M3 = smooth1;
-Floor_3_M3 = smooth2;
+Floor_1_M3 = smooth1
 
     %Mode 1 floors 1&2
         figure()
@@ -412,7 +396,7 @@ Floor_3_M3 = smooth2;
         plot(F23_M3_Time,Floor_3_M3)
         grid on
         legend('Floor 1','Floor 2','Floor 3','Location','southeast')
-        title('Resonance Mode 3')
+        title('Resonance Mode 1')
         xlabel('Time [s]')
         ylabel('Measured Voltage [V]')
         xlim([-0.1,0.1])
